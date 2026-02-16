@@ -1,6 +1,6 @@
 import pytest
 from typing import Union
-from app.operations import Operations
+from app.operation import Operations
 
 Number = Union[int, float]
 
