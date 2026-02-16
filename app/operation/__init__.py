@@ -1,4 +1,4 @@
-class Operations:
+class Operation:
 
   @staticmethod
   def addition(a: float, b: float) -> float:

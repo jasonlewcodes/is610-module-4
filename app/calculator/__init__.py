@@ -6,7 +6,7 @@ and divide numbers based on what the user types.
 import sys
 from typing import List
 
-from calculation import Calculation, CalculationFactory
+from app.calculation import Calculation, CalculationFactory
 
 def display_help() -> None:
     """
@@ -65,7 +65,7 @@ def calculator():
             user_input = input("Enter an operation (add, subtract, multiply, divide) and two numbers").strip()
 
             if not user_input:
-                continue
+                continue # pragma: no cover
 
             if user_input.lower() == "help":
                 display_help()
@@ -86,10 +86,10 @@ def calculator():
                 continue
 
             try:
-                calculation = CalculationFactory.create_calcualtion(operation, num1, num2)
+                calculation = CalculationFactory.create_calculation(operation, num1, num2)
             except ValueError as e:
                 print(e)
-                print("Type 'help' for more information.\n")
+                print("Type 'help' to see the list of supported operations.\n")
                 continue
             
             try:

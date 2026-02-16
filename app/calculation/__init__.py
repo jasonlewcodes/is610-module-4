@@ -58,4 +58,6 @@ class MultiplyCalculation(Calculation):
 @CalculationFactory.register_calculation('divide')
 class DivideCalculation(Calculation):
   def execute(self) -> float:
+    if self.b == 0:
+      raise ZeroDivisionError("Cannot divide by zero.")
     return Operation.division(self.a, self.b)

@@ -1,6 +1,6 @@
 import pytest
 from typing import Union
-from app.operation import Operations
+from app.operation import Operation
 
 Number = Union[int, float]
 
@@ -19,7 +19,7 @@ Number = Union[int, float]
       ]
 )
 def test_addition(a: Number, b: Number, expected: Number) -> None:
-  result = Operations.addition(a, b)
+  result = Operation.addition(a, b)
   assert result == expected, f"Expected addition({a}, {b}) to be {expected}, but got {result}"
 
 @pytest.mark.parametrize(
@@ -36,7 +36,7 @@ def test_addition(a: Number, b: Number, expected: Number) -> None:
       ]
 )
 def test_subtraction(a: Number, b: Number, expected: Number) -> None:
-  result = Operations.subtraction(a, b)
+  result = Operation.subtraction(a, b)
   assert result == expected, f"Expected subtraction({a}, {b}) to be {expected}, but got {result}"
 
 @pytest.mark.parametrize(
@@ -53,7 +53,7 @@ def test_subtraction(a: Number, b: Number, expected: Number) -> None:
       ]
 )
 def test_multiplication(a: Number, b: Number, expected: Number) -> None:
-  result = Operations.multiplication(a, b)
+  result = Operation.multiplication(a, b)
   assert result == expected, f"Expected multiplication({a}, {b}) to be {expected}, but got {result}"
 
 @pytest.mark.parametrize(
@@ -70,7 +70,7 @@ def test_multiplication(a: Number, b: Number, expected: Number) -> None:
       ]
 )
 def test_division(a: Number, b: Number, expected: Number) -> None:
-  result = Operations.division(a, b)
+  result = Operation.division(a, b)
   assert result == expected, f"Expected division({a}, {b}) to be {expected}, but got {result}" 
 
 
@@ -89,5 +89,5 @@ def test_division(a: Number, b: Number, expected: Number) -> None:
 )
 def test_division_by_zero(a: Number, b: Number) -> None:
   with pytest.raises(ValueError, match="Division by zero is not allowed."):
-      Operations.division(a, b)
+      Operation.division(a, b)
     
