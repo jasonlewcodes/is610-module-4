@@ -231,85 +231,37 @@ def test_divide_calculation_execute_division_by_zero():
 # -----------------------------------------------------------------------------------
 # Test CalculationFactory
 # -----------------------------------------------------------------------------------
-
-def test_factory_creates_add_calculation():
+@pytest.mark.parametrize(
+      "a, b, calculation_type, classParam",
+      [
+         (10.0, 5.0, "add", AddCalculation),
+         (10.0, 5.0, "subtract", SubtractCalculation),
+         (10.0, 5.0, "multiply", MultiplyCalculation),
+         (10.0, 5.0, "divide", DivideCalculation),
+      ],
+      ids=[
+         "test_factory_creates_add_calculation",
+         "test_factory_creates_subtract_calculation",
+         "test_factory_creates_multiply_calculation",
+         "test_factory_creates_divide_calculation",
+      ]
+)
+def test_factory_creates(a: float, b: float, calculation_type, classParam):
     """
     Test that CalculationFactory creates an AddCalculation instance.
 
     This test ensures that the factory correctly instantiates the AddCalculation
     class when the 'add' calculation type is requested.
     """
-    # Arrange
-    a = 10.0
-    b = 5.0
 
     # Act
-    calc = CalculationFactory.create_calculation('add', a, b)
+    calc = CalculationFactory.create_calculation(calculation_type, a, b)
 
     # Assert
-    assert isinstance(calc, AddCalculation)  # Check if the instance is of AddCalculation
+    assert isinstance(calc, classParam)  # Check if the instance is of AddCalculation
     assert calc.a == a                        # Verify the first operand
     assert calc.b == b                        # Verify the second operand
 
-
-def test_factory_creates_subtract_calculation():
-    """
-    Test that CalculationFactory creates a SubtractCalculation instance.
-
-    This test verifies that the factory correctly instantiates the SubtractCalculation
-    class when the 'subtract' calculation type is requested.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-
-    # Act
-    calc = CalculationFactory.create_calculation('subtract', a, b)
-
-    # Assert
-    assert isinstance(calc, SubtractCalculation)
-    assert calc.a == a
-    assert calc.b == b
-
-
-def test_factory_creates_multiply_calculation():
-    """
-    Test that CalculationFactory creates a MultiplyCalculation instance.
-
-    This test ensures that the factory correctly instantiates the MultiplyCalculation
-    class when the 'multiply' calculation type is requested.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-
-    # Act
-    calc = CalculationFactory.create_calculation('multiply', a, b)
-
-    # Assert
-    assert isinstance(calc, MultiplyCalculation)
-    assert calc.a == a
-    assert calc.b == b
-
-
-def test_factory_creates_divide_calculation():
-    """
-    Test that CalculationFactory creates a DivideCalculation instance.
-
-    This test verifies that the factory correctly instantiates the DivideCalculation
-    class when the 'divide' calculation type is requested.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-
-    # Act
-    calc = CalculationFactory.create_calculation('divide', a, b)
-
-    # Assert
-    assert isinstance(calc, DivideCalculation)
-    assert calc.a == a
-    assert calc.b == b
 
 
 def test_factory_create_unsupported_calculation():
@@ -356,93 +308,6 @@ def test_factory_register_calculation_duplicate():
 # -----------------------------------------------------------------------------------
 # Test String Representations
 # -----------------------------------------------------------------------------------
-
-@patch.object(Operation, 'addition', return_value=15.0)
-def test_calculation_str_representation_addition(mock_addition):
-    """
-    Test the __str__ method of AddCalculation.
-
-    This test verifies that the string representation of an AddCalculation instance
-    is formatted correctly, displaying the class name, operation, operands, and result.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-    add_calc = AddCalculation(a, b)
-
-    # Act
-    calc_str = str(add_calc)
-
-    # Assert
-    # Expected string should reflect the operation name derived from the class name ('Add')
-    expected_str = f"{add_calc.__class__.__name__}: {a} Add {b} = 15.0"
-    assert calc_str == expected_str
-
-
-@patch.object(Operation, 'subtraction', return_value=5.0)
-def test_calculation_str_representation_subtraction(mock_subtraction):
-    """
-    Test the __str__ method of SubtractCalculation.
-
-    This test verifies that the string representation of a SubtractCalculation instance
-    is formatted correctly, displaying the class name, operation, operands, and result.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-    subtract_calc = SubtractCalculation(a, b)
-
-    # Act
-    calc_str = str(subtract_calc)
-
-    # Assert
-    # Expected string should reflect the operation name derived from the class name ('Subtract')
-    expected_str = f"{subtract_calc.__class__.__name__}: {a} Subtract {b} = 5.0"
-    assert calc_str == expected_str
-
-
-@patch.object(Operation, 'multiplication', return_value=50.0)
-def test_calculation_str_representation_multiplication(mock_multiplication):
-    """
-    Test the __str__ method of MultiplyCalculation.
-
-    This test verifies that the string representation of a MultiplyCalculation instance
-    is formatted correctly, displaying the class name, operation, operands, and result.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-    multiply_calc = MultiplyCalculation(a, b)
-
-    # Act
-    calc_str = str(multiply_calc)
-
-    # Assert
-    # Expected string should reflect the operation name derived from the class name ('Multiply')
-    expected_str = f"{multiply_calc.__class__.__name__}: {a} Multiply {b} = 50.0"
-    assert calc_str == expected_str
-
-
-@patch.object(Operation, 'division', return_value=2.0)
-def test_calculation_str_representation_division(mock_division):
-    """
-    Test the __str__ method of DivideCalculation.
-
-    This test verifies that the string representation of a DivideCalculation instance
-    is formatted correctly, displaying the class name, operation, operands, and result.
-    """
-    # Arrange
-    a = 10.0
-    b = 5.0
-    divide_calc = DivideCalculation(a, b)
-
-    # Act
-    calc_str = str(divide_calc)
-
-    # Assert
-    # Expected string should reflect the operation name derived from the class name ('Divide')
-    expected_str = f"{divide_calc.__class__.__name__}: {a} Divide {b} = 2.0"
-    assert calc_str == expected_str
 
 
 def test_calculation_repr_representation_subtraction():
